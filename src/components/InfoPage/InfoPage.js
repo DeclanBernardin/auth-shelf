@@ -18,7 +18,7 @@ class InfoPage extends Component {
     event.preventDefault()
 console.log(' i clicked submit');
 this.props.dispatch({
-  type: 'ADD_ITEM',
+  type: 'POST_ITEMS',
   payload: this.state
 })}
 
@@ -42,7 +42,9 @@ handleChangeItemURL =(event) => {
     console.log(id);
     console.log(user_id);
     
-    this.props.dispatch({type: 'DELETE_ITEM', payload: {id: id, userId: user_id}})
+    this.props.dispatch({type: 'DELETE_ITEMS', payload: {id: id, userId: user_id}})
+    
+    
   }
 
   render(){

@@ -1,4 +1,4 @@
-import { put, takeLatest, actionChannel } from 'redux-saga/effects';
+import { put, takeLatest, } from 'redux-saga/effects';
 import axios from 'axios';
 
 //DONT NEED ACTION AFTER FETCHITEMS SINCE ITS A GET
@@ -27,21 +27,23 @@ function* putItems(action) {
         })
     }catch (error) {
         console.log(error);
-        res.sendStatus(403);
+        
     }
 }
 
 function* removeItems(action) {
     try{
+        console.log(action.payload);
         let id = action.payload.id
-        yield axios.delete(`/api/shelf/` +id, action.payload.userId)
+        console.log(id);
+        
+        yield axios.delete(`/api/shelf/${id}`, {user_id: action.payload})
         yield put({
             type: 'FETCH_ITEMS',
-            payload: action.response.data
         })
     }catch (error) {
         console.log(error);
-        res.sendStatus(500)
+        
     }
 }
 
