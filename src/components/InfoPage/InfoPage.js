@@ -9,7 +9,30 @@ import { connect } from 'react-redux';
 
 class InfoPage extends Component {
 
-  state={}
+  state={
+    description: '',
+    image_url: ''
+  }
+
+  handlePost = (event) => {
+    event.preventDefault()
+console.log(' i clicked submit');
+this.props.dispatch({
+  type: 'ADD_ITEM',
+  payload: this.state
+})}
+
+handleChangeDescription = (event) => {
+  this.setState({
+    description: event.target.value,
+  })
+}
+
+handleChangeItemURL =(event) => {
+  this.setState({
+    image_url: event.target.value
+  })
+}
 
   componentDidMount(){
     this.props.dispatch({type: 'FETCH_ITEMS'})
@@ -24,7 +47,7 @@ class InfoPage extends Component {
 
   render(){
     let table = this.props.reduxStore.itemReducer.map(item => {
-      return (<tr><td>{item.description}</td><td><img src = {item.image_url}/></td><td><button onClick = {() => this.handleDelete(item.id, item.user_id)}>Delete</button></td></tr>)
+      return (<tr><td>{item.description}</td><td><img src = {item.image_url} alt = ""/></td><td><button onClick = {() => this.handleDelete(item.id, item.user_id)}>Delete</button></td></tr>)
     })
     return(
       <div>
@@ -41,7 +64,12 @@ class InfoPage extends Component {
           </tbody>
 
         </table>
-      </div>
+        <form onSubmit = {this.handlePost}>
+          <input onChange= {this.handleChangeDescription} type = "text" placeholder= "Insert the description of your item"/>
+          <input onChange = {this.handleChangeItemURL} type = "text" placeholder = "Insert the URL of your image here" />
+          <button type = "submit">SUBMIT</button>
+        </form>
+        </div>
     )
   }
 };
