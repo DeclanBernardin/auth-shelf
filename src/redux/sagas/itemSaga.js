@@ -19,7 +19,7 @@ function* fetchItems() {
 }
 
 function* itemSaga() {
-    yield takeLatest('SET_ITEMS', fetchItems);
+    yield takeLatest('FETCH_ITEMS', fetchItems);
 }
 
 export default itemSaga;
